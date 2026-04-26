@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -6,9 +6,20 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [backendStatus, setBackendStatus] = useState('Checking...')
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/status`)
+      .then(res => res.json())
+      .then(data => setBackendStatus(data.message))
+      .catch(() => setBackendStatus('Backend not reachable'))
+  }, [])
 
   return (
     <>
+      <div style={{ background: backendStatus.includes('working') ? '#1a3a1a' : '#3a1a1a', padding: '10px', borderRadius: '8px', marginBottom: '16px' }}>
+        <strong>Backend Status:</strong> {backendStatus}
+      </div>
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
