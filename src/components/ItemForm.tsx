@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { createItem } from './api';
+import { createItem } from '../api';
 
 export default function ItemForm({ onItemAdded }: { onItemAdded: () => void }) {
 const [name, setName] = useState('');
 const [description, setDescription] = useState('');
-const [price, setPrice] = useState('');   // ← NEW
+const [price, setPrice] = useState('');
+const [date, setDate] = useState('');   // ← NEW
 const handleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
-await createItem({ name, description, price: Number(price) });  // ← UPDATED
+await createItem({ name, description, price: Number(price),date });  // ← UPDATED
 setName('');
 setDescription('');
-setPrice('');  // ← NEW
+setPrice('');
+setDate  // ← NEW
 onItemAdded();
 };
 return (
@@ -41,6 +43,14 @@ onChange={e => setPrice(e.target.value)}
 required
 />
 </div>   
+<div>
+<input
+placeholder="Date"
+value={date}
+onChange={e => setDate(e.target.value)}
+required
+/>
+</div>
 {/* ← NEW */}
 <button type="submit">Add Item</button>
 </form>
