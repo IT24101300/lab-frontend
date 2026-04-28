@@ -5,6 +5,7 @@ interface Item {
   name: string;
   description: string;
   price: number;
+  date: Date;
 }
 
 export default function ItemList({ items, onRefresh }: { items: Item[]; onRefresh: () => void }) {
@@ -19,7 +20,9 @@ return (
 <div key={item._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
 <h3>{item.name}</h3>
 <p>{item.description}</p>
+<p><strong>Date: {new Date(item.date).toLocaleDateString()}</strong></p>
 <p><strong>Price: ${item.price}</strong></p>
+
 <button onClick={() => handleDelete(item._id)}>Delete</button>
 </div>
 ))}
