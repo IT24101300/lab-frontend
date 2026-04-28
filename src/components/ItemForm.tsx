@@ -45,7 +45,7 @@ required
 </div>   
 <div>
 <input
-placeholder="Date"
+placeholder="Date(e.g. 2024-06-30)"
 value={date}
 onChange={e => setDate(e.target.value)}
 required
