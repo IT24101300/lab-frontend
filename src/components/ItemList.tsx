@@ -1,19 +1,26 @@
 import { deleteItem } from '../api';
-export default function ItemList({ items, onRefresh }) {
-const handleDelete = async (id) => {
+
+interface Item {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+}
+
+export default function ItemList({ items, onRefresh }: { items: Item[]; onRefresh: () => void }) {
+const handleDelete = async (id: string) => {
 await deleteItem(id);
 onRefresh();
 };
 return (
 <div>
 <h2>Items</h2>
-{items.map(item => (
+{items.map((item: Item) => (
 <div key={item._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
 <h3>{item.name}</h3>
 <p>{item.description}</p>
-<p><strong>Price: ${item.price}</strong></p>   {/*← NEW */}
-<button onClick={() => handleDelete(item._id)}>Dele
-te</button>
+<p><strong>Price: ${item.price}</strong></p>
+<button onClick={() => handleDelete(item._id)}>Delete</button>
 </div>
 ))}
 </div>
